@@ -1,29 +1,19 @@
 const express=require('express');
-const bcrypt = require('bcryptjs');
 const cors=require('cors');
 const app=express();
 const dbConnect=require('./db')
-const user_model = require('./models/user')
 
 app.use(cors())
 app.use(express.json())
 
+//db connection
 dbConnect();
 
+// routes
 app.use(express.json());
-app.post('/user',async(req,res)=>{
-    try {
-		const newPassword = await bcrypt.hash(req.body.password, 10)
-		await user_model.create({
-			name: req.body.name,
-			email: req.body.email,
-			password: newPassword,
-		})
-		res.json({ status: 'ok' })
-	} catch (err) {
-		res.json({ status: 'error', error: 'Duplicate email' })
-	}
-})
+app.use('/user',require('./routes/user'))
+app.use('/post',require('./routes/posts'))
+
 
 app.get('/',(req,res)=>{
     res.send("hello world");
