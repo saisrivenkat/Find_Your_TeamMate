@@ -1,0 +1,12 @@
+.content{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    /* padding: 24px 25px; */
+    /* padding-bottom: 18px; */
+    border-bottom: 1px solid #e0e0e0;
+    align-content: center;
+    align-items: center;
+    margin-top: 10px;
+    /* margin: 10px 65px;*/
+}

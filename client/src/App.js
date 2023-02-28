@@ -7,7 +7,8 @@ import {
   Link,
 } from "react-router-dom";
 import Login from './Register/Login';
-import Dashboard from './Dashboard'
+import Dashboard from './Dashboard';
+import Main from './main/index';
 import { useState } from 'react';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 
       <BrowserRouter>
       <Routes>
+        <Route path='/' element={<Main />} />
         <Route path="/login" element={<Login token={token} settoken={settoken} setuser={setuser} />} />
         <Route path="/register" element={<Register token={token} settoken={settoken} />} />
         <Route  path="/dashboard" element={<Dashboard token={token} user={user} />} />

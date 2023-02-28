@@ -1,6 +1,9 @@
 import React,{useState} from 'react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import logo from '../images/logo.png'
+import back from '../images/blob-haikei.png';
 import './register.css'
+
 const Register=()=>{
     const[name,setname]=useState();
     const[email,setemail]=useState();
@@ -32,7 +35,7 @@ const Register=()=>{
     return(
         <div className='register'>
           <div className='register-wrapper'>
-            <div className='register-pic'>
+            <div className='register-pic' style={{backgroudImage:`url(${back})`}}>
             <img width="550" src="https://cdni.iconscout.com/illustration/premium/thumb/sign-up-page-1886582-1598253.png" alt="register-svg"/>
            
             </div>
@@ -55,7 +58,7 @@ const Register=()=>{
                   </div>
                   <div>
                     <label htmlFor='password'>Password</label>
-                  <input id='password' type="text"  />
+                  <input id='password' type="text"  /><VisibilityIcon/>
                   </div>
                   <div>
                     <label htmlFor='confirmpassword'>Confirm Password</label>

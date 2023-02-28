@@ -1,3 +1,7 @@
+.register{
+    background-image:url('../images/blob-haikei (1).png');
+    background-repeat:no-repeat;
+}
 
 .register-wrapper{
     display: flex;
