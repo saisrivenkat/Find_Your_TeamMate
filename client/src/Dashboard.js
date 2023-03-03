@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import UserPosts from './UserPosts';
-const Dashboard=({token,user})=>{
-    const [posts,setposts] = useState([]);
+import{useDispatch,useSelector} from 'react-redux';
+
+const Dashboard=()=>{
+   
     const[refresh,setrefresh] = useState(false)
+    const dispatch = useDispatch();
+
+    const user = useSelector(state=>state.user);
+    const posts  = useSelector(state=>state.posts);
+
     useEffect(()=>{
         const post_fetch=async()=>{
             try {
@@ -10,12 +17,13 @@ const Dashboard=({token,user})=>{
                  const data = await response.json();
                  console.log(data);
                  //data.filter(post=>post._id!=user.id)
-                 setposts(data);
+                
+                 dispatch({type:'POSTS',payload:data});
                } catch(error) {
                   console.log(error)
                  } 
         }
-        console.log(token)
+        
         post_fetch();
     },[refresh])
     const Apply=async(id,post)=>{
@@ -30,7 +38,7 @@ console.log(payload)
                 body:JSON.stringify(post),
                 headers:{
                     'Content-Type':'application/json',
-                    Authorization:`Bearer ${token}`,
+                    Authorization:`Bearer ${user.token}`,
                 }
             });
             const data = await response.json();
@@ -45,10 +53,11 @@ console.log(payload)
                 body: JSON.stringify(user),
                 headers: {
                   'Content-Type': 'application/json',
-                  Authorization:`Bearer ${token}`,
+                  Authorization:`Bearer ${user.token}`,
                 }   
             });
             const data = await response.json();
+
             console.log(data);
 
         }catch(err){
@@ -56,7 +65,7 @@ console.log(payload)
         }
         
     }
-    if(!token){
+    if(!user){
         return(
             <>
             <h1>Please login in</h1>
@@ -74,7 +83,7 @@ console.log(payload)
                 </>
             )
         })}
-        <UserPosts token={token} user={user} />
+        <UserPosts token={user.token} user={user} />
         </>
     )
 }

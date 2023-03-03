@@ -1,10 +1,14 @@
 import React,{useState} from 'react';
 import logo from '../images/logo.png'
 import './register.css'
+import { useDispatch } from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 const Register=()=>{
     const[name,setname]=useState();
     const[email,setemail]=useState();
     const[pwd,setpwd]=useState();
+    const dipatch = useDispatch();
+    const navigate = useNavigate();
 
     const Submit=async(e)=>{
         e.preventDefault();
@@ -23,6 +27,8 @@ const Register=()=>{
              });
              const data = await response.json();
              console.log(data);
+             dipatch({type:'USER',payload:data});
+             navigate("/login");
            } catch(error) {
               console.log(error)
              } 
@@ -47,21 +53,21 @@ const Register=()=>{
               <div className='content'>
                 <div>
                   <label htmlFor='name'>Name</label>
-                  <input id="name" type="text"  />
+                  <input value={name} id="name" type="text"  onChange={(e)=>setname(e.target.value)} />
                   </div>
                   <div>
                     <label htmlFor='email'>Email</label>
-                  <input id="email" type="text"  />
+                  <input value={email} id="email" type="text" onChange={(e)=>setemail(e.target.value)} />
                   </div>
                   <div>
                     <label htmlFor='password'>Password</label>
-                  <input id='password' type="text"  />
+                  <input value={pwd} id='password' type="text" onChange={(e)=>setpwd(e.target.value)} />
                   </div>
                   <div>
                     <label htmlFor='confirmpassword'>Confirm Password</label>
                   <input id='confirmpassword' type="text" />
                   </div>
-                  <button>Register</button>
+                  <button onClick={Submit}>Register</button>
               </div>
             </div>
           </div>

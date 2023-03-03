@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-const Login=({settoken,setuser})=>{
+const Login=()=>{
     const navigate = useNavigate();
     const [email,setemail] = useState();
     const[pwd,setpwd] = useState();
+    const dipatch = useDispatch();
 
     const submit=async(e)=>{
         e.preventDefault();
@@ -22,13 +24,9 @@ const Login=({settoken,setuser})=>{
              });
              const data = await response.json();
              console.log(data);
-             setuser(data);
-             if(data.token){
-                console.log(data.token);
-                settoken(data.token);
-                navigate('/dashboard')
-             }
-             console.log(data);
+            dipatch({type:"USER",payload:data})
+            navigate('/dashboard')
+            console.log(data);
            } catch(error) {
               console.log(error)
              } 
